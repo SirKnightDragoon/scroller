@@ -60,13 +60,16 @@ scrollerObj.setDimensions(1000, 1000, 3000, 3000);
 
 ```js
 // Create EasyScroller with JS
-var scrollerObj = new EasyScroller($("[data-container]")[0], {
+var easyScroller = new EasyScroller($("[data-container]")[0], {
   scrollingX: false,
   scrollingY: true,
   zooming: false,
   minZoom: 1,
   maxZoom: 1
 });
+
+// Configure to have an outer dimension of 1000px and inner dimension of 3000px
+easyScroller.scroller.setDimensions(1000, 1000, 3000, 3000);
 ```
 
 
