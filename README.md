@@ -46,7 +46,7 @@ These are the available options with their defaults. Options can be modified usi
 * penetrationDeceleration = `0.03`
 * penetrationAcceleration = `0.08`
 
-Usage
+Examples
 -----
 
 Callback (first parameter of constructor) is required. Options are optional. Defaults are listed above. The created instance must have proper dimensions using a `setDimensions()` call. Afterwards you can pass in event data or manually control scrolling/zooming via the API.
@@ -77,7 +77,7 @@ easyScroller.scroller.setDimensions(1000, 1000, 3000, 3000);
 ```
 
 
-Public API
+Methods
 ----------
 
 * Setup scroll object dimensions.  
@@ -101,7 +101,7 @@ Public API
 * Scroll by the given amount.  
   `scrollerObj.scrollBy(leftOffset, topOffset, animate ? false);`
 
-Event API
+Events
 ---------
 
 This API part can be used to pass event data to the `scrollerObj` to react on user actions. 
