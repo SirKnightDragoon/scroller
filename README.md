@@ -58,6 +58,18 @@ var scrollerObj = new Scroller(function(left, top, zoom) {
 scrollerObj.setDimensions(1000, 1000, 3000, 3000);
 ```
 
+```js
+// Create EasyScroller with JS
+var scrollerObj = new EasyScroller($("[data-container]")[0], {
+  scrollingX: false,
+  scrollingY: true,
+  zooming: false,
+  minZoom: 1,
+  maxZoom: 1
+});
+```
+
+
 Public API
 ----------
 
