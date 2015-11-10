@@ -5,6 +5,23 @@ A pure logic component for scrolling/zooming. It is independent of any specific 
 
 The "demo" folder contains examples for usage with DOM and Canvas renderings which works both, on mouse and touch driven devices.
 
+This repo is fork from zynga
+
+New features from SirKnightDragoon
+----------------------------------
+
+Doc:
+
+* Add missing options
+* Add small example of EasyScroller
+* Rename some word
+
+Merges usefuls:
+
+* Fix a corner case where scrollingComplete callback never fires (kanongil merge)
+* Let the user stop and hold the page during a bounce (juliangarnier merge)
+* Some fix from (mattlo merge)
+
 
 Demos
 -----
