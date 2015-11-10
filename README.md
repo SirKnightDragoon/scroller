@@ -91,6 +91,9 @@ var easyScroller = new EasyScroller($("[data-container]")[0], {
 
 // Configure to have an outer dimension of 1000px and inner dimension of 3000px
 easyScroller.scroller.setDimensions(1000, 1000, 3000, 3000);
+easyScroller.onUpdate = function(es, left, top, zoom){
+  
+}
 ```
 
 
