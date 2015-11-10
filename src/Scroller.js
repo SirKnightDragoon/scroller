@@ -982,6 +982,8 @@ var Scroller;
 							if (!self.__refreshActive) {
 								self.__startDeceleration(timeStamp);
 							}
+						} else {
+							self.options.scrollingComplete();
 						}
 					} else {
 						self.options.scrollingComplete();
