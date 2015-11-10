@@ -41,6 +41,10 @@ These are the available options with their defaults. Options can be modified usi
 * zooming = `false`
 * minZoom = `0.5`
 * maxZoom = `3`
+* speedMultiplier = `1`
+* scrollingComplete = `function(){}`
+* penetrationDeceleration = `0.03`
+* penetrationAcceleration = `0.08`
 
 Usage
 -----
