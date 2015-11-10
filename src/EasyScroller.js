@@ -1,13 +1,16 @@
 var EasyScroller = function(content, options) {
 	
+	var NOOP = function(){};
 	this.content = content;
 	this.container = content.parentNode;
 	this.options = options || {};
+	this.onUpdate = NOOP;
 
 	// create Scroller instance
 	var that = this;
 	this.scroller = new Scroller(function(left, top, zoom) {
 		that.render(left, top, zoom);
+		that.onUpdate(that, left, top, zoom);
 	}, options);
 
 	// bind events
