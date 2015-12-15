@@ -10,6 +10,9 @@ This repo is fork from zynga
 New features from SirKnightDragoon
 ----------------------------------
 
+Features:
+* Add onUpdate event
+
 Fix:
 
 * Add the possibility to have EasyScroller inner EasyScroller (fix double scrolling)
@@ -125,7 +128,7 @@ Methods
 * Scroll by the given amount.  
   `scrollerObj.scrollBy(leftOffset, topOffset, animate ? false);`
 
-Events
+Events (actions)
 ---------
 
 This API part can be used to pass event data to the `scrollerObj` to react on user actions. 
@@ -143,5 +146,8 @@ For a touch device just pass the native `touches` event data to the doTouch* met
 To zoom using the `mousewheel` event just pass the data like this:
 
 * `doMouseZoom(e.wheelDelta, e.timeStamp, e.pageX, e.pageY);`
+
+Events (callback)
+* `onUpdate(es, left, top, zoom);`
 
 For more information about this please take a look at the demos.
