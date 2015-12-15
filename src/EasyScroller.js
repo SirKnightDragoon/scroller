@@ -114,6 +114,7 @@ EasyScroller.prototype.bindEvents = function() {
 		this.container.addEventListener("touchmove", function(e) {
 			e.preventDefault();
 			that.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
+			e.stopPropagation();
 		}, false);
 
 		this.container.addEventListener("touchend", function(e) {
