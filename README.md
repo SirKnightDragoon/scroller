@@ -148,6 +148,8 @@ To zoom using the `mousewheel` event just pass the data like this:
 * `doMouseZoom(e.wheelDelta, e.timeStamp, e.pageX, e.pageY);`
 
 Events (callback)
+---------
+
 * `onUpdate(es, left, top, zoom);`
 
 For more information about this please take a look at the demos.
