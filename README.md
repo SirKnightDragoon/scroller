@@ -10,6 +10,10 @@ This repo is fork from zynga
 New features from SirKnightDragoon
 ----------------------------------
 
+Fix:
+
+* Add the possibility to have EasyScroller inner EasyScroller (fix double scrolling)
+
 Doc:
 
 * Add missing options
