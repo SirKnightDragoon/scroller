@@ -98,30 +98,54 @@ EasyScroller.prototype.bindEvents = function() {
 	// touch devices bind touch events
 	if ('ontouchstart' in window) {
 
+		var touchstart = false;
+
 		this.container.addEventListener("touchstart", function(e) {
 
 			// Don't react if initial down happens on a form element
 			if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName.match(/input|textarea|select/i)) {
 				return;
 			}
+
+			touchstart = true;
 			
 			// reflow since the container may have changed
 			that.reflow();
 			
 			that.scroller.doTouchStart(e.touches, e.timeStamp);
-		}, false);
 
-		this.container.addEventListener("touchmove", function(e) {
 			e.preventDefault();
-			that.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
 			e.stopPropagation();
 		}, false);
 
+		this.container.addEventListener("touchmove", function(e) {
+
+			if (!touchstart) {
+				return;
+			}
+			
+			that.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
+		}, false);
+
 		this.container.addEventListener("touchend", function(e) {
+
+			if (!touchstart) {
+				return;
+			}
+
+			touchstart = false;
+
 			that.scroller.doTouchEnd(e.timeStamp);
 		}, false);
 
 		this.container.addEventListener("touchcancel", function(e) {
+
+			if (!touchstart) {
+				return;
+			}
+
+			touchstart = false;
+
 			that.scroller.doTouchEnd(e.timeStamp);
 		}, false);
 
@@ -147,7 +171,7 @@ EasyScroller.prototype.bindEvents = function() {
 			that.reflow();
 			
 			e.preventDefault();
-
+			e.stopPropagation();
 		}, false);
 
 		document.addEventListener("mousemove", function(e) {
