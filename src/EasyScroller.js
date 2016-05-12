@@ -24,6 +24,8 @@ var EasyScroller = function(content, options) {
 
 };
 
+EasyScroller.IS_SCROLLING = false;
+
 EasyScroller.prototype.render = (function() {
 	
 	var docStyle = document.documentElement.style;
@@ -102,6 +104,9 @@ EasyScroller.prototype.bindEvents = function() {
 
 		this.container.addEventListener("touchstart", function(e) {
 
+			if(EasyScroller.IS_SCROLLING) return;
+			EasyScroller.IS_SCROLLING = true;
+
 			// Don't react if initial down happens on a form element
 			if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName.match(/input|textarea|select/i)) {
 				return;
@@ -115,7 +120,6 @@ EasyScroller.prototype.bindEvents = function() {
 			that.scroller.doTouchStart(e.touches, e.timeStamp);
 
 			e.preventDefault();
-			e.stopPropagation();
 		}, false);
 
 		this.container.addEventListener("touchmove", function(e) {
@@ -136,6 +140,8 @@ EasyScroller.prototype.bindEvents = function() {
 			touchstart = false;
 
 			that.scroller.doTouchEnd(e.timeStamp);
+
+			EasyScroller.IS_SCROLLING = false;
 		}, false);
 
 		this.container.addEventListener("touchcancel", function(e) {
@@ -147,6 +153,8 @@ EasyScroller.prototype.bindEvents = function() {
 			touchstart = false;
 
 			that.scroller.doTouchEnd(e.timeStamp);
+
+			EasyScroller.IS_SCROLLING = false;
 		}, false);
 
 	// non-touch bind mouse events
@@ -155,6 +163,9 @@ EasyScroller.prototype.bindEvents = function() {
 		var mousedown = false;
 
 		this.container.addEventListener("mousedown", function(e) {
+
+			if(EasyScroller.IS_SCROLLING) return;
+			EasyScroller.IS_SCROLLING = true;
 
 			if (e.target.tagName.match(/input|textarea|select/i)) {
 				return;
@@ -171,7 +182,6 @@ EasyScroller.prototype.bindEvents = function() {
 			that.reflow();
 			
 			e.preventDefault();
-			e.stopPropagation();
 		}, false);
 
 		document.addEventListener("mousemove", function(e) {
@@ -199,6 +209,7 @@ EasyScroller.prototype.bindEvents = function() {
 
 			mousedown = false;
 
+			EasyScroller.IS_SCROLLING = false;
 		}, false);
 
 		this.container.addEventListener("mousewheel", function(e) {
