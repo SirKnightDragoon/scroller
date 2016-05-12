@@ -118,8 +118,6 @@ EasyScroller.prototype.bindEvents = function() {
 			that.reflow();
 			
 			that.scroller.doTouchStart(e.touches, e.timeStamp);
-
-			e.preventDefault();
 		}, false);
 
 		this.container.addEventListener("touchmove", function(e) {
@@ -180,8 +178,6 @@ EasyScroller.prototype.bindEvents = function() {
 			
 			// reflow since the container may have changed
 			that.reflow();
-			
-			e.preventDefault();
 		}, false);
 
 		document.addEventListener("mousemove", function(e) {
