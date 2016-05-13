@@ -127,6 +127,12 @@ EasyScroller.prototype.bindEvents = function() {
 			}
 			
 			that.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
+
+			if(that.scroller.options.locking){
+				if(that.scroller.__enableScrollX || that.scroller.__enableScrollY){
+					e.preventDefault();
+				}
+			}
 		}, false);
 
 		this.container.addEventListener("touchend", function(e) {
