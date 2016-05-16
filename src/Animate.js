@@ -23,9 +23,17 @@
  * based on the pure time difference.
  */
 (function(global) {
-	var time = Date.now || function() {
-		return +new Date();
-	};
+	
+	if ("performance" in window == false) {
+		window.performance = {};
+	}
+
+	if ("now" in window.performance == false){
+		window.performance.now = function now(){
+			return +new Date();
+		}
+	}
+
 	var desiredFrames = 60;
 	var millisecondsPerSecond = 1000;
 	var running = {};
@@ -68,7 +76,7 @@
 			var requestCount = 0;
 			var rafHandle = 1;
 			var intervalHandle = null;
-			var lastActive = +new Date();
+			var lastActive = performance.now();
 
 			return function(callback, root) {
 				var callbackHandle = rafHandle++;
@@ -82,7 +90,7 @@
 
 					intervalHandle = setInterval(function() {
 
-						var time = +new Date();
+						var time = performance.now();
 						var currentRequests = requests;
 
 						// Reset data structure before executing callbacks
@@ -157,7 +165,7 @@
 		 */
 		start: function(stepCallback, verifyCallback, completedCallback, duration, easingMethod, root) {
 
-			var start = time();
+			var start = performance.now();
 			var lastFrame = start;
 			var percent = 0;
 			var dropCounter = 0;
@@ -183,7 +191,7 @@
 				var render = virtual !== true;
 
 				// Get current time
-				var now = time();
+				var now = performance.now();
 
 				// Verification is executed before next animation step
 				if (!running[id] || (verifyCallback && !verifyCallback(id))) {
@@ -236,4 +244,3 @@
 		}
 	};
 })(this);
-
