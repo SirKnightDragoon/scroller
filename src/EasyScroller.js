@@ -5,6 +5,7 @@ var EasyScroller = function(content, options) {
 	this.container = content.parentNode;
 	this.options = options || {};
 	this.onUpdate = NOOP;
+	this.autoActive = false;
 
 	// create Scroller instance
 	var that = this;
@@ -79,6 +80,13 @@ EasyScroller.prototype.render = (function() {
 
 EasyScroller.prototype.reflow = function() {
 
+	// Auto active scroll on dimensions size
+	if((this.content.offsetWidth > this.container.clientWidth && this.options.scrollingX) || (this.content.offsetHeight > this.container.clientHeight && this.options.scrollingY)){
+		this.autoActive = true;
+	}else{
+		this.autoActive = false;
+	}
+
 	// set the right scroller dimensions
 	this.scroller.setDimensions(this.container.clientWidth, this.container.clientHeight, this.content.offsetWidth, this.content.offsetHeight);
 
@@ -103,6 +111,8 @@ EasyScroller.prototype.bindEvents = function() {
 		var touchstart = false;
 
 		this.container.addEventListener("touchstart", function(e) {
+
+			if(!that.autoActive) return;
 
 			if(EasyScroller.IS_SCROLLING) return;
 			EasyScroller.IS_SCROLLING = true;
@@ -167,6 +177,8 @@ EasyScroller.prototype.bindEvents = function() {
 		var mousedown = false;
 
 		this.container.addEventListener("mousedown", function(e) {
+
+			if(!that.autoActive) return;
 
 			if(EasyScroller.IS_SCROLLING) return;
 			EasyScroller.IS_SCROLLING = true;
