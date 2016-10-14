@@ -1,0 +1,19 @@
+{
+  "name": "Scroller",
+  "version": "1.0.0",
+  "homepage": "http://www.dnastorm.com/",
+  "authors": [
+    "SirKnightDragoon"
+  ],
+  "description": "A pure logic component for scrolling/zooming",
+  "keywords": [],
+  "ignore": [],
+  "dependencies": {
+    "jquery": "3.1.1",
+    "isMobile": "0.4.1",
+    "gsap": "1.19.0",
+    "scroller":"git://github.com/SirKnightDragoon/scroller.git#1.2.6",
+    "jquery-mousewheel": "~3.1.13"
+  },
+  "devDependencies": {}
+}
