@@ -12,6 +12,12 @@ New features from SirKnightDragoon
 
 Features:
 * Add onUpdate event
+* WidgetScroller
+    - Complete Scroller Widget (include EasyScroller)
+    - MouseWheel Simple and Single for normal and paging
+    - ArrowKey Navigation (From keyboard)
+    - Anchor navigation
+    - ScrollBar X and Y (Custom)
 
 Fix:
 
@@ -29,14 +35,84 @@ Merges usefuls:
 * Let the user stop and hold the page during a bounce (juliangarnier merge)
 * Some fix from (mattlo merge)
 
+WidgetScroller Dependencies
+-----
 
-Demos
+* look into the Bower.json
+
+WidgetScroller Examples
+-----
+
+```js
+//Init widgetScroller
+jQuery(document).ready(function($) {
+    var widgetScroller = new WidgetScroller({
+        container:$("[data-contents]"),
+        haveScrollBarY:true,
+        navBarY:$("[data-nav-bar]"),
+        btnNavBarY:$("[data-btn-nav-bar]"),
+        bouncing:false,
+        paging:true,
+        speedMultiplier:.75,
+        animationDuration:1000
+    });
+});
+```
+```js
+//Get the current Page (paging mode)
+var oldBtnActiveIndex = 0;
+widgetScroller.onPageChanged = function(pageX, pageY){
+    if(pageY != oldBtnActiveIndex){
+        oldBtnActiveIndex = pageY;
+        $(".nav-sections a").removeClass("active");
+        $(".nav-sections a:eq("+pageY+")").addClass("active");
+    }
+};
+```
+```js
+//Go to a anchor point
+$(".nav-sections a").on("click", function (e) {
+    e.preventDefault();
+
+    $(".nav-sections a").removeClass("active");
+    $(this).addClass("active");
+    var anchor = $(this).attr("href");
+    widgetScroller.scrollToAnchor(anchor);
+});
+```
+
+WidgetScroller Options
+-------
+* container:`null`,
+* scrollingX: `false`,
+* scrollingY: `true`,
+* haveScrollBarX: `false`,
+* haveScrollBarY: `false`,
+* navBarX:`null`,
+* navBarY:`null`,
+* btnNavBarX:`null`,
+* btnNavBarY:`null`,
+* bouncing:`true`,
+* locking:`true`,
+* paging:`false`,
+* snapping:`null`,
+* speedMultiplier:`1`,
+* penetrationDeceleration:`0.03`,
+* penetrationAcceleration:`0.08`,
+* animationDuration:`250`
+
+WidgetScroller Demos
+-----
+
+* Coming Soon
+
+Scroller and EasyScroller Demos
 -----
 
 See our demos online here: http://zynga.github.com/scroller/
 
 
-Features
+Scroller Features
 --------
 
 * Customizable enabling/disabling of scrolling for x-axis and y-axis
@@ -49,7 +125,7 @@ Features
 * Pull-to-Refresh (Pull top out of the boundaries to start refresh of list)
 * Configurable regarding whether animation should be used.
 
-Options
+Scroller Options
 -------
 
 These are the available options with their defaults. Options can be modified using the second constructor parameter or during runtime by modification of `scrollerObj.options.optionName`.
@@ -70,7 +146,7 @@ These are the available options with their defaults. Options can be modified usi
 * penetrationDeceleration = `0.03`
 * penetrationAcceleration = `0.08`
 
-Examples
+Scroller and EasyScroller Examples
 -----
 
 Callback (first parameter of constructor) is required. Options are optional. Defaults are listed above. The created instance must have proper dimensions using a `setDimensions()` call. Afterwards you can pass in event data or manually control scrolling/zooming via the API.
@@ -104,7 +180,7 @@ easyScroller.onUpdate = function(es, left, top, zoom){
 ```
 
 
-Methods
+Scroller Methods
 ----------
 
 * Setup scroll object dimensions.  
@@ -128,7 +204,7 @@ Methods
 * Scroll by the given amount.  
   `scrollerObj.scrollBy(leftOffset, topOffset, animate ? false);`
 
-Events (actions)
+Scroller Events (actions)
 ---------
 
 This API part can be used to pass event data to the `scrollerObj` to react on user actions. 
@@ -147,7 +223,7 @@ To zoom using the `mousewheel` event just pass the data like this:
 
 * `doMouseZoom(e.wheelDelta, e.timeStamp, e.pageX, e.pageY);`
 
-Events (callback)
+Scroller Events (callback)
 ---------
 
 * `onUpdate(es, left, top, zoom);`
