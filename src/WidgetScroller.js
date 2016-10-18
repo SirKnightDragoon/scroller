@@ -98,7 +98,7 @@ WidgetScroller.prototype.onUpdateEasyScroller = function(es, left, top, zoom){
 }
 
 WidgetScroller.prototype.updateParentScroll = function(){
-    if(this.options.parentWidgetScroller != null){
+    if(this.options.parentWidgetScroller != null && this.easyScroller.scroller.__maxScrollTop > 0){
         //top
         if(this.easyScroller.scroller.__scrollTop == 0 && this.easyScroller.scroller.__scheduledTop == 0){
             if(this.options.parentWidgetScroller.options.paging) {
@@ -156,6 +156,7 @@ WidgetScroller.prototype.onResize = function(){
                 _this.options.container.css("paddingLeft", _this.defaultPagePaddingLeft);
                 _this.options.container.css("paddingRight", _this.defaultPagePaddingRight);
                 TweenMax.set(_this.options.container, {x:0, delay:1});
+                _this.easyScroller.reflow();
             }
         }, 50);
 
@@ -172,6 +173,7 @@ WidgetScroller.prototype.onResize = function(){
                 _this.options.container.css("paddingTop", _this.defaultPagePaddingTop);
                 _this.options.container.css("paddingBottom", _this.defaultPagePaddingBottom);
                 TweenMax.set(_this.options.container, {y:0, delay:1});
+                _this.easyScroller.reflow();
             }
         }, 50);
 
@@ -182,7 +184,8 @@ WidgetScroller.prototype.onResize = function(){
 WidgetScroller.prototype.onMouseWheel = function(e){
     e.preventDefault();
 
-    e.stopPropagation();
+    if(this.easyScroller.scroller.__maxScrollTop > 0)
+        e.stopPropagation();
 
     if(this.options.paging){
         var curTime = new Date().getTime();
