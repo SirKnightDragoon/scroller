@@ -21,7 +21,8 @@ var WidgetScroller = function(opt){
         animationDuration:250,
         pageOffsetPaddingX:0,
         pageOffsetPaddingY:0,
-        mouseWheelForce:1
+        mouseWheelForce:1,
+        parentWidgetScroller:null
     };
 
     for(var o in opt){
@@ -92,6 +93,28 @@ WidgetScroller.prototype.onUpdateEasyScroller = function(es, left, top, zoom){
         var pageY = Math.round(this.easyScroller.scroller.__scrollTop / this.easyScroller.scroller.__clientHeight);
         this.onPageChanged(pageX, pageY);
     }
+
+    if(EasyScroller.IS_SCROLLING) this.updateParentScroll();
+}
+
+WidgetScroller.prototype.updateParentScroll = function(){
+    if(this.options.parentWidgetScroller != null){
+        //top
+        if(this.easyScroller.scroller.__scrollTop == 0 && this.easyScroller.scroller.__scheduledTop == 0){
+            if(this.options.parentWidgetScroller.options.paging) {
+                this.options.parentWidgetScroller.easyScroller.scroller.scrollTo(0, this.options.parentWidgetScroller.easyScroller.scroller.__scrollTop - this.options.parentWidgetScroller.easyScroller.scroller.__clientHeight, true);
+            }else{
+                this.options.parentWidgetScroller.easyScroller.scroller.scrollTo(0, this.options.parentWidgetScroller.easyScroller.scroller.__scrollTop - 50, true);
+            }
+            //Bottom
+        }else if(this.easyScroller.scroller.__scrollTop == this.easyScroller.scroller.__maxScrollTop && this.easyScroller.scroller.__scheduledTop == this.easyScroller.scroller.__maxScrollTop) {
+            if (this.options.parentWidgetScroller.options.paging) {
+                this.options.parentWidgetScroller.easyScroller.scroller.scrollTo(0, this.options.parentWidgetScroller.easyScroller.scroller.__scrollTop + this.options.parentWidgetScroller.easyScroller.scroller.__clientHeight, true);
+            }else{
+                this.options.parentWidgetScroller.easyScroller.scroller.scrollTo(0, this.options.parentWidgetScroller.easyScroller.scroller.__scrollTop + 50, true);
+            }
+        }
+    }
 }
 
 WidgetScroller.prototype.updateNavBarPosition = function(left, top){
@@ -159,9 +182,7 @@ WidgetScroller.prototype.onResize = function(){
 WidgetScroller.prototype.onMouseWheel = function(e){
     e.preventDefault();
 
-    //if(this.easyScroller.scroller.__scheduledTop < this.easyScroller.scroller.__maxScrollTop && this.easyScroller.scroller.__scheduledTop > 0){
     e.stopPropagation();
-    //}
 
     if(this.options.paging){
         var curTime = new Date().getTime();
@@ -202,6 +223,7 @@ WidgetScroller.prototype.onMouseWheel = function(e){
 
     }else{
         this.easyScroller.scroller.scrollBy(0, -e.deltaY * e.deltaFactor * this.options.mouseWheelForce, true);
+        this.updateParentScroll();
     }
 }
 
