@@ -18,7 +18,10 @@ var WidgetScroller = function(opt){
         speedMultiplier:1,
         penetrationDeceleration:0.03,
         penetrationAcceleration:0.08,
-        animationDuration:250
+        animationDuration:250,
+        pageOffsetPaddingX:0,
+        pageOffsetPaddingY:0,
+        mouseWheelForce:1
     };
 
     for(var o in opt){
@@ -30,6 +33,10 @@ var WidgetScroller = function(opt){
     this.mouseWheelNewDirection = null;
     this.scrollings = [];
     this.prevTime = new Date().getTime();
+    this.defaultPagePaddingTop = this.options.container.css("paddingTop");
+    this.defaultPagePaddingBottom = this.options.container.css("paddingBottom");
+    this.defaultPagePaddingLeft = this.options.container.css("paddingLeft");
+    this.defaultPagePaddingRight = this.options.container.css("paddingRight");
 
     this.onPageChanged = null;
 
@@ -101,6 +108,8 @@ WidgetScroller.prototype.updateNavBarPosition = function(left, top){
 }
 
 WidgetScroller.prototype.onResize = function(){
+    var _this = this;
+
     this.containerBounds = this.options.container.parent()[0].getBoundingClientRect();
     if(this.options.haveScrollBarX){
         this.btnWidth = this.options.btnNavBarX[0].getBoundingClientRect().width;
@@ -114,10 +123,45 @@ WidgetScroller.prototype.onResize = function(){
         this.subCntHeight = this.options.container[0].getBoundingClientRect().height;
         this.cntHeight = this.containerBounds.height;
     }
+
+    if(this.options.pageOffsetPaddingX > 0){
+        this.options.container.css("paddingLeft", parseFloat(this.defaultPagePaddingLeft) + this.options.pageOffsetPaddingX);
+        this.options.container.css("paddingRight", parseFloat(this.defaultPagePaddingRight) + this.options.pageOffsetPaddingX);
+
+        setTimeout(function(){
+            if(_this.easyScroller.scroller.__maxScrollLeft - (_this.options.pageOffsetPaddingX * 2) <= 0){
+                _this.options.container.css("paddingLeft", _this.defaultPagePaddingLeft);
+                _this.options.container.css("paddingRight", _this.defaultPagePaddingRight);
+                TweenMax.set(_this.options.container, {x:0, delay:1});
+            }
+        }, 50);
+
+        this.easyScroller.reflow();
+    }
+
+    if(this.options.pageOffsetPaddingY > 0){
+
+        this.options.container.css("paddingTop", parseFloat(this.defaultPagePaddingTop) + this.options.pageOffsetPaddingY);
+        this.options.container.css("paddingBottom", parseFloat(this.defaultPagePaddingBottom) + this.options.pageOffsetPaddingY);
+
+        setTimeout(function(){
+            if(_this.easyScroller.scroller.__maxScrollTop - (_this.options.pageOffsetPaddingY * 2) <= 0){
+                _this.options.container.css("paddingTop", _this.defaultPagePaddingTop);
+                _this.options.container.css("paddingBottom", _this.defaultPagePaddingBottom);
+                TweenMax.set(_this.options.container, {y:0, delay:1});
+            }
+        }, 50);
+
+        this.easyScroller.reflow();
+    }
 }
 
 WidgetScroller.prototype.onMouseWheel = function(e){
     e.preventDefault();
+
+    //if(this.easyScroller.scroller.__scheduledTop < this.easyScroller.scroller.__maxScrollTop && this.easyScroller.scroller.__scheduledTop > 0){
+    e.stopPropagation();
+    //}
 
     if(this.options.paging){
         var curTime = new Date().getTime();
@@ -157,7 +201,7 @@ WidgetScroller.prototype.onMouseWheel = function(e){
         }
 
     }else{
-        this.easyScroller.scroller.scrollBy(0, -e.deltaY * e.deltaFactor, true);
+        this.easyScroller.scroller.scrollBy(0, -e.deltaY * e.deltaFactor * this.options.mouseWheelForce, true);
     }
 }
 
@@ -281,5 +325,3 @@ WidgetScroller.prototype.initEvents = function(){
 WidgetScroller.prototype.scrollToAnchor = function(anchor){
     this.easyScroller.scroller.scrollTo($("a[name='"+anchor.substring(1)+"']").parent().position().left - this.options.container.position().left, $("a[name='"+anchor.substring(1)+"']").parent().position().top - this.options.container.position().top, true);
 }
-
-
