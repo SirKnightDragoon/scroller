@@ -100,6 +100,10 @@ WidgetScroller Options
 * penetrationDeceleration:`0.03`,
 * penetrationAcceleration:`0.08`,
 * animationDuration:`250`
+* pageOffsetPaddingX:`0`,
+* pageOffsetPaddingY:`0`,
+* mouseWheelForce:`1`,
+* parentWidgetScroller:`null`
 
 WidgetScroller Demos
 -----
