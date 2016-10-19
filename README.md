@@ -104,6 +104,7 @@ WidgetScroller Options
 * pageOffsetPaddingY:`0`,
 * mouseWheelForce:`1`,
 * parentWidgetScroller:`null`
+* autoUpdate:`false`
 
 WidgetScroller Demos
 -----
