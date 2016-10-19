@@ -12,7 +12,6 @@
     "jquery": "3.1.1",
     "isMobile": "0.4.1",
     "gsap": "1.19.0",
-    "scroller":"git://github.com/SirKnightDragoon/scroller.git#1.4.2",
     "jquery-mousewheel": "3.1.13"
   },
   "devDependencies": {}
