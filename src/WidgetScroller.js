@@ -22,7 +22,8 @@ var WidgetScroller = function(opt){
         pageOffsetPaddingX:0,
         pageOffsetPaddingY:0,
         mouseWheelForce:1,
-        parentWidgetScroller:null
+        parentWidgetScroller:null,
+        autoUpdate:false
     };
 
     for(var o in opt){
@@ -38,6 +39,8 @@ var WidgetScroller = function(opt){
     this.defaultPagePaddingBottom = this.options.container.css("paddingBottom");
     this.defaultPagePaddingLeft = this.options.container.css("paddingLeft");
     this.defaultPagePaddingRight = this.options.container.css("paddingRight");
+
+    this.innerContentBounds = null;
 
     this.onPageChanged = null;
 
@@ -343,8 +346,24 @@ WidgetScroller.prototype.onScrollY = function(e){
 }
 
 WidgetScroller.prototype.initEvents = function(){
+    var _this = this;
     this.onResize();
     this.easyScroller.reflow();
+
+    if(this.options.autoUpdate){
+        this.innerContentBounds = this.options.container[0].getBoundingClientRect();
+        setInterval(function(){
+            var testInnerContentBounds = _this.options.container[0].getBoundingClientRect();
+
+            if(Math.round(_this.innerContentBounds.height) != Math.round(testInnerContentBounds.height)){
+                _this.onResize();
+            }else if(Math.round(_this.innerContentBounds.width) != Math.round(testInnerContentBounds.width)){
+                _this.onResize();
+            }
+
+            _this.innerContentBounds = testInnerContentBounds;
+        }, 1000);
+    }
 }
 
 WidgetScroller.prototype.scrollToAnchor = function(anchor){
