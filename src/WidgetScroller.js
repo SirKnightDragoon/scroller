@@ -97,10 +97,19 @@ WidgetScroller.prototype.onUpdateEasyScroller = function(es, left, top, zoom){
         this.onPageChanged(pageX, pageY);
     }
 
-    if(EasyScroller.IS_SCROLLING) this.updateParentScroll();
+    if(EasyScroller.IS_SCROLLING) this.updateParentScroll(es);
 }
 
-WidgetScroller.prototype.updateParentScroll = function(){
+WidgetScroller.prototype.updateParentScroll = function(es){
+
+    if(es != null){
+        if(es.scroller.__initialTouchTop == null || es.scroller.__lastTouchTop == null || typeof es.scroller.__initialTouchTop == "undefined" || typeof es.scroller.__lastTouchTop == "undefined")
+            return;
+
+        if(es.scroller.__initialTouchTop == es.scroller.__lastTouchTop)
+            return;
+    }
+
     if(this.options.parentWidgetScroller != null && this.easyScroller.scroller.__maxScrollTop > 0){
         //top
         if(this.easyScroller.scroller.__scrollTop == 0 && this.easyScroller.scroller.__scheduledTop == 0){
@@ -229,7 +238,7 @@ WidgetScroller.prototype.onMouseWheel = function(e){
 
     }else{
         this.easyScroller.scroller.scrollBy(0, -e.deltaY * e.deltaFactor * this.options.mouseWheelForce, true);
-        this.updateParentScroll();
+        this.updateParentScroll(null);
     }
 }
 
