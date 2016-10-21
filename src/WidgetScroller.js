@@ -366,8 +366,10 @@ WidgetScroller.prototype.initEvents = function(){
 
             if(Math.round(_this.innerContentBounds.height) != Math.round(testInnerContentBounds.height)){
                 _this.onResize();
+                _this.easyScroller.reflow();
             }else if(Math.round(_this.innerContentBounds.width) != Math.round(testInnerContentBounds.width)){
                 _this.onResize();
+                _this.easyScroller.reflow();
             }
 
             _this.innerContentBounds = testInnerContentBounds;
