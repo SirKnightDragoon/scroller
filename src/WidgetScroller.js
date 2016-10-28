@@ -73,6 +73,9 @@ WidgetScroller.prototype.init = function(){
 
     //On update scroller
     this.easyScroller.onUpdate = this.onUpdateEasyScroller.bind(this);
+    this.easyScroller.onMouseUp = this.updateParentScroll.bind(this);
+    this.easyScroller.onTouchEnd = this.updateParentScroll.bind(this);
+    this.easyScroller.onTouchCancel = this.updateParentScroll.bind(this);
 
     //Resize update
     $(window).resize(this.onResize.bind(this));
@@ -88,6 +91,10 @@ WidgetScroller.prototype.init = function(){
     if(this.options.haveScrollBarY) this.options.btnNavBarY.on((isMobile.any ? "touchstart" : "mousedown"), this.onScrollY.bind(this));
 }
 
+WidgetScroller.prototype.onScrollingComplete = function(){
+    this.updateParentScroll(null);
+}
+
 WidgetScroller.prototype.onUpdateEasyScroller = function(es, left, top, zoom){
     this.updateNavBarPosition(left, top);
 
@@ -96,19 +103,11 @@ WidgetScroller.prototype.onUpdateEasyScroller = function(es, left, top, zoom){
         var pageY = Math.round(this.easyScroller.scroller.__scrollTop / this.easyScroller.scroller.__clientHeight);
         this.onPageChanged(pageX, pageY);
     }
-
-    if(EasyScroller.IS_SCROLLING) this.updateParentScroll(es);
 }
 
 WidgetScroller.prototype.updateParentScroll = function(es){
-
-    if(es != null){
-        if(es.scroller.__initialTouchTop == null || es.scroller.__lastTouchTop == null || typeof es.scroller.__initialTouchTop == "undefined" || typeof es.scroller.__lastTouchTop == "undefined")
-            return;
-
-        if(es.scroller.__initialTouchTop == es.scroller.__lastTouchTop)
-            return;
-    }
+    if(this.easyScroller.scroller.__initialTouchTop != null && this.easyScroller.scroller.__initialTouchTop == this.easyScroller.scroller.__lastTouchTop)
+        return;
 
     if(this.options.parentWidgetScroller != null && this.easyScroller.scroller.__maxScrollTop > 0){
         //top
@@ -127,6 +126,7 @@ WidgetScroller.prototype.updateParentScroll = function(es){
             }
         }
     }
+
 }
 
 WidgetScroller.prototype.updateNavBarPosition = function(left, top){
