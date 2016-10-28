@@ -91,10 +91,6 @@ WidgetScroller.prototype.init = function(){
     if(this.options.haveScrollBarY) this.options.btnNavBarY.on((isMobile.any ? "touchstart" : "mousedown"), this.onScrollY.bind(this));
 }
 
-WidgetScroller.prototype.onScrollingComplete = function(){
-    this.updateParentScroll(null);
-}
-
 WidgetScroller.prototype.onUpdateEasyScroller = function(es, left, top, zoom){
     this.updateNavBarPosition(left, top);
 
@@ -105,8 +101,8 @@ WidgetScroller.prototype.onUpdateEasyScroller = function(es, left, top, zoom){
     }
 }
 
-WidgetScroller.prototype.updateParentScroll = function(es){
-    if(this.easyScroller.scroller.__initialTouchTop != null && this.easyScroller.scroller.__initialTouchTop == this.easyScroller.scroller.__lastTouchTop)
+WidgetScroller.prototype.updateParentScroll = function(isMouseWheel){
+    if(!isMouseWheel && this.easyScroller.scroller.__initialTouchTop != null && this.easyScroller.scroller.__initialTouchTop == this.easyScroller.scroller.__lastTouchTop)
         return;
 
     if(this.options.parentWidgetScroller != null && this.easyScroller.scroller.__maxScrollTop > 0){
@@ -235,10 +231,15 @@ WidgetScroller.prototype.onMouseWheel = function(e){
                 this.easyScroller.scroller.scrollTo(0, this.easyScroller.scroller.__scrollTop + (this.easyScroller.scroller.__clientHeight * -this.mouseWheelNewDirection), true);
             }
         }
-
     }else{
+
+        if(this.options.parentWidgetScroller != null && this.easyScroller.scroller.__maxScrollTop > 0){
+            if(this.options.parentWidgetScroller.easyScroller.scroller.__isAnimating)
+                return;
+        }
+
         this.easyScroller.scroller.scrollBy(0, -e.deltaY * e.deltaFactor * this.options.mouseWheelForce, true);
-        this.updateParentScroll(null);
+        this.updateParentScroll(true);
     }
 }
 
