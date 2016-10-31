@@ -102,11 +102,16 @@ WidgetScroller.prototype.onUpdateEasyScroller = function(es, left, top, zoom){
 }
 
 WidgetScroller.prototype.updateParentScroll = function(isMouseWheel){
-    if(!isMouseWheel && this.easyScroller.scroller.__initialTouchTop != null && this.easyScroller.scroller.__initialTouchTop == this.easyScroller.scroller.__lastTouchTop)
+    if(!isMouseWheel && this.easyScroller.scroller.__initialTouchTop != null && this.easyScroller.scroller.__lastTouchTop != null && this.easyScroller.scroller.__initialTouchTop == this.easyScroller.scroller.__lastTouchTop)
         return;
 
     if(this.options.parentWidgetScroller != null && this.easyScroller.scroller.__maxScrollTop > 0){
         //top
+
+        console.log("__scrollTop", this.easyScroller.scroller.__scrollTop);
+        console.log("__scheduledTop", this.easyScroller.scroller.__scheduledTop);
+        console.log("__maxScrollTop", this.easyScroller.scroller.__maxScrollTop);
+
         if(this.easyScroller.scroller.__scrollTop == 0 && this.easyScroller.scroller.__scheduledTop == 0){
             if(this.options.parentWidgetScroller.options.paging) {
                 this.options.parentWidgetScroller.easyScroller.scroller.scrollTo(0, this.options.parentWidgetScroller.easyScroller.scroller.__scrollTop - this.options.parentWidgetScroller.easyScroller.scroller.__clientHeight, true);
