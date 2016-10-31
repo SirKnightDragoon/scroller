@@ -378,6 +378,9 @@ WidgetScroller.prototype.initEvents = function(){
     }
 }
 
-WidgetScroller.prototype.scrollToAnchor = function(anchor){
-    this.easyScroller.scroller.scrollTo($("a[name='"+anchor.substring(1)+"']").parent().position().left - this.options.container.position().left, $("a[name='"+anchor.substring(1)+"']").parent().position().top - this.options.container.position().top, true);
+WidgetScroller.prototype.scrollToAnchor = function(anchor, isAnimate){
+    if(!$("a[name='"+anchor.substring(1)+"']").length)
+        return;
+
+    this.easyScroller.scroller.scrollTo($("a[name='"+anchor.substring(1)+"']").parent().position().left - this.options.container.position().left, $("a[name='"+anchor.substring(1)+"']").parent().position().top - this.options.container.position().top, isAnimate);
 }
