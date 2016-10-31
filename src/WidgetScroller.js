@@ -112,14 +112,14 @@ WidgetScroller.prototype.updateParentScroll = function(isMouseWheel){
         console.log("__scheduledTop", this.easyScroller.scroller.__scheduledTop);
         console.log("__maxScrollTop", this.easyScroller.scroller.__maxScrollTop);
 
-        if(this.easyScroller.scroller.__scrollTop == 0 && this.easyScroller.scroller.__scheduledTop == 0){
+        if(this.easyScroller.scroller.__scrollTop <= 1 && this.easyScroller.scroller.__scheduledTop == 0){
             if(this.options.parentWidgetScroller.options.paging) {
                 this.options.parentWidgetScroller.easyScroller.scroller.scrollTo(0, this.options.parentWidgetScroller.easyScroller.scroller.__scrollTop - this.options.parentWidgetScroller.easyScroller.scroller.__clientHeight, true);
             }else{
                 this.options.parentWidgetScroller.easyScroller.scroller.scrollTo(0, this.options.parentWidgetScroller.easyScroller.scroller.__scrollTop - 50, true);
             }
             //Bottom
-        }else if(this.easyScroller.scroller.__scrollTop == this.easyScroller.scroller.__maxScrollTop && this.easyScroller.scroller.__scheduledTop == this.easyScroller.scroller.__maxScrollTop) {
+        }else if(this.easyScroller.scroller.__scrollTop >= this.easyScroller.scroller.__maxScrollTop - 1 && this.easyScroller.scroller.__scheduledTop == this.easyScroller.scroller.__maxScrollTop) {
             if (this.options.parentWidgetScroller.options.paging) {
                 this.options.parentWidgetScroller.easyScroller.scroller.scrollTo(0, this.options.parentWidgetScroller.easyScroller.scroller.__scrollTop + this.options.parentWidgetScroller.easyScroller.scroller.__clientHeight, true);
             }else{
