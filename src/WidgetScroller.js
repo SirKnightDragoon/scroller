@@ -159,14 +159,14 @@ WidgetScroller.prototype.onResize = function(){
         this.options.container.css("paddingLeft", parseFloat(this.defaultPagePaddingLeft) + this.options.pageOffsetPaddingX.left);
         this.options.container.css("paddingRight", parseFloat(this.defaultPagePaddingRight) + this.options.pageOffsetPaddingX.right);
 
-        setTimeout(function(){
-            if(_this.easyScroller.scroller.__maxScrollLeft - (_this.options.pageOffsetPaddingX.left + _this.options.pageOffsetPaddingX.right) <= 0){
-                _this.options.container.css("paddingLeft", _this.defaultPagePaddingLeft);
-                _this.options.container.css("paddingRight", _this.defaultPagePaddingRight);
-                TweenMax.set(_this.options.container, {x:0, delay:1});
-                _this.easyScroller.reflow();
-            }
-        }, 50);
+        /*setTimeout(function(){
+         if(_this.easyScroller.scroller.__maxScrollLeft - (_this.options.pageOffsetPaddingX.left + _this.options.pageOffsetPaddingX.right) <= 0){
+         _this.options.container.css("paddingLeft", _this.defaultPagePaddingLeft);
+         _this.options.container.css("paddingRight", _this.defaultPagePaddingRight);
+         TweenMax.set(_this.options.container, {x:0, delay:1});
+         _this.easyScroller.reflow();
+         }
+         }, 50);*/
 
         this.easyScroller.reflow();
     }
@@ -176,14 +176,14 @@ WidgetScroller.prototype.onResize = function(){
         this.options.container.css("paddingTop", parseFloat(this.defaultPagePaddingTop) + this.options.pageOffsetPaddingY.top);
         this.options.container.css("paddingBottom", parseFloat(this.defaultPagePaddingBottom) + this.options.pageOffsetPaddingY.bottom);
 
-        setTimeout(function(){
-            if(_this.easyScroller.scroller.__maxScrollTop - (_this.options.pageOffsetPaddingY.top + _this.options.pageOffsetPaddingY.bottom) <= 0){
-                _this.options.container.css("paddingTop", _this.defaultPagePaddingTop);
-                _this.options.container.css("paddingBottom", _this.defaultPagePaddingBottom);
-                TweenMax.set(_this.options.container, {y:0, delay:1});
-                _this.easyScroller.reflow();
-            }
-        }, 50);
+        /*setTimeout(function(){
+         if(_this.easyScroller.scroller.__maxScrollTop - (_this.options.pageOffsetPaddingY.top + _this.options.pageOffsetPaddingY.bottom) <= 0){
+         _this.options.container.css("paddingTop", _this.defaultPagePaddingTop);
+         _this.options.container.css("paddingBottom", _this.defaultPagePaddingBottom);
+         TweenMax.set(_this.options.container, {y:0, delay:1});
+         _this.easyScroller.reflow();
+         }
+         }, 50);*/
 
         this.easyScroller.reflow();
     }
