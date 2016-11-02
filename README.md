@@ -80,6 +80,19 @@ $(".nav-sections a").on("click", function (e) {
     widgetScroller.scrollToAnchor(anchor);
 });
 ```
+```js
+//Init inner widgetScroller
+jQuery(document).ready(function($) {
+    this.widgetScroller = new WidgetScroller({
+        container: $("[data-sub-content]"),
+        bouncing: false,
+        pageOffsetPaddingY:{top:0, bottom:50},
+        mouseWheelForce:.25,
+        parentWidgetScroller:$("[data-contents]"),
+        autoUpdate:true
+    });
+});
+```
 
 WidgetScroller Options
 -------
@@ -100,8 +113,8 @@ WidgetScroller Options
 * penetrationDeceleration:`0.03`,
 * penetrationAcceleration:`0.08`,
 * animationDuration:`250`
-* pageOffsetPaddingX:`0`,
-* pageOffsetPaddingY:`0`,
+* pageOffsetPaddingX:`{left:0, right:0}`,
+* pageOffsetPaddingY:`{top:0, bottom:0}`,
 * mouseWheelForce:`1`,
 * parentWidgetScroller:`null`
 * autoUpdate:`false`
