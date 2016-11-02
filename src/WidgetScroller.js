@@ -19,8 +19,8 @@ var WidgetScroller = function(opt){
         penetrationDeceleration:0.03,
         penetrationAcceleration:0.08,
         animationDuration:250,
-        pageOffsetPaddingX:0,
-        pageOffsetPaddingY:0,
+        pageOffsetPaddingX:{left:0, right:0},
+        pageOffsetPaddingY:{top:0, bottom:0},
         mouseWheelForce:1,
         parentWidgetScroller:null,
         autoUpdate:false
@@ -155,12 +155,12 @@ WidgetScroller.prototype.onResize = function(){
         this.cntHeight = this.containerBounds.height;
     }
 
-    if(this.options.pageOffsetPaddingX > 0){
-        this.options.container.css("paddingLeft", parseFloat(this.defaultPagePaddingLeft) + this.options.pageOffsetPaddingX);
-        this.options.container.css("paddingRight", parseFloat(this.defaultPagePaddingRight) + this.options.pageOffsetPaddingX);
+    if(this.options.pageOffsetPaddingX.left > 0 || this.options.pageOffsetPaddingX.right > 0){
+        this.options.container.css("paddingLeft", parseFloat(this.defaultPagePaddingLeft) + this.options.pageOffsetPaddingX.left);
+        this.options.container.css("paddingRight", parseFloat(this.defaultPagePaddingRight) + this.options.pageOffsetPaddingX.right);
 
         setTimeout(function(){
-            if(_this.easyScroller.scroller.__maxScrollLeft - (_this.options.pageOffsetPaddingX * 2) <= 0){
+            if(_this.easyScroller.scroller.__maxScrollLeft - (_this.options.pageOffsetPaddingX.left + _this.options.pageOffsetPaddingX.right) <= 0){
                 _this.options.container.css("paddingLeft", _this.defaultPagePaddingLeft);
                 _this.options.container.css("paddingRight", _this.defaultPagePaddingRight);
                 TweenMax.set(_this.options.container, {x:0, delay:1});
@@ -171,13 +171,13 @@ WidgetScroller.prototype.onResize = function(){
         this.easyScroller.reflow();
     }
 
-    if(this.options.pageOffsetPaddingY > 0){
+    if(this.options.pageOffsetPaddingY.top > 0 || this.options.pageOffsetPaddingY.bottom > 0){
 
-        this.options.container.css("paddingTop", parseFloat(this.defaultPagePaddingTop) + this.options.pageOffsetPaddingY);
-        this.options.container.css("paddingBottom", parseFloat(this.defaultPagePaddingBottom) + this.options.pageOffsetPaddingY);
+        this.options.container.css("paddingTop", parseFloat(this.defaultPagePaddingTop) + this.options.pageOffsetPaddingY.top);
+        this.options.container.css("paddingBottom", parseFloat(this.defaultPagePaddingBottom) + this.options.pageOffsetPaddingY.bottom);
 
         setTimeout(function(){
-            if(_this.easyScroller.scroller.__maxScrollTop - (_this.options.pageOffsetPaddingY * 2) <= 0){
+            if(_this.easyScroller.scroller.__maxScrollTop - (_this.options.pageOffsetPaddingY.top + _this.options.pageOffsetPaddingY.bottom) <= 0){
                 _this.options.container.css("paddingTop", _this.defaultPagePaddingTop);
                 _this.options.container.css("paddingBottom", _this.defaultPagePaddingBottom);
                 TweenMax.set(_this.options.container, {y:0, delay:1});
