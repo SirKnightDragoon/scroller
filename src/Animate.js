@@ -40,14 +40,14 @@
 	var counter = 1;
 
 	// Create namespaces
-	if (!global.core) {
-		global.core = { effect : {} };
+	if (!global.scroller) {
+		global.scroller = { effect : {} };
 
-	} else if (!core.effect) {
-		core.effect = {};
+	} else if (!scroller.effect) {
+		scroller.effect = {};
 	}
 
-	core.effect.Animate = {
+	scroller.effect.Animate = {
 
 		/**
 		 * A requestAnimationFrame wrapper / polyfill.
@@ -229,7 +229,7 @@
 					completedCallback && completedCallback(desiredFrames - (dropCounter / ((now - start) / millisecondsPerSecond)), id, percent === 1 || duration == null);
 				} else if (render) {
 					lastFrame = now;
-					core.effect.Animate.requestAnimationFrame(step, root);
+					scroller.effect.Animate.requestAnimationFrame(step, root);
 				}
 			};
 
@@ -237,7 +237,7 @@
 			running[id] = true;
 
 			// Init first step
-			core.effect.Animate.requestAnimationFrame(step, root);
+			scroller.effect.Animate.requestAnimationFrame(step, root);
 
 			// Return unique animation ID
 			return id;
