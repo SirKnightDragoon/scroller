@@ -43,6 +43,7 @@ var WidgetScroller = function(opt){
     this.innerContentBounds = null;
 
     this.onPageChanged = null;
+    this.onScrollUpdate = null;
 
     this.init();
 
@@ -93,6 +94,7 @@ WidgetScroller.prototype.init = function(){
 
 WidgetScroller.prototype.onUpdateEasyScroller = function(es, left, top, zoom){
     this.updateNavBarPosition(left, top);
+    if(this.onScrollUpdate) this.onScrollUpdate(es, left, top, zoom);
 
     if(this.options.paging == true && this.onPageChanged != null){
         var pageX = Math.round(this.easyScroller.scroller.__scrollLeft / this.easyScroller.scroller.__clientWidth);
