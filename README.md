@@ -119,16 +119,10 @@ WidgetScroller Options
 * parentWidgetScroller:`null`
 * autoUpdate:`false`
 
-WidgetScroller Demos
+Scroller, EasyScroller and WidgetScroller Demos
 -----
 
-* Coming Soon
-
-Scroller and EasyScroller Demos
------
-
-See our demos online here: http://zynga.github.com/scroller/
-
+See our demos online here: http://sirknightdragoon.github.io/scroller/
 
 Scroller Features
 --------
