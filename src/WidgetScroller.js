@@ -192,7 +192,6 @@ WidgetScroller.prototype.onResize = function(){
 }
 
 WidgetScroller.prototype.onMouseWheel = function(e){
-    if(!this.easyScroller.autoActive) return;
     e.preventDefault();
 
     if(this.easyScroller.scroller.__maxScrollTop > 0)
@@ -260,7 +259,6 @@ WidgetScroller.prototype.getAverage = function(elements, number){
 }
 
 WidgetScroller.prototype.onKeyDown = function(e){
-    if(!this.easyScroller.autoActive) return;
     if(this.options.scrollingX){
         if( e.which == 37 ){
             e.preventDefault();
@@ -298,7 +296,6 @@ WidgetScroller.prototype.onKeyDown = function(e){
 }
 
 WidgetScroller.prototype.onScrollX = function(e){
-    if(!this.easyScroller.autoActive) return;
     var _this = this;
     e.preventDefault();
     e.stopPropagation();
@@ -330,7 +327,6 @@ WidgetScroller.prototype.onScrollX = function(e){
 }
 
 WidgetScroller.prototype.onScrollY = function(e){
-    if(!this.easyScroller.autoActive) return;
     var _this = this;
     e.preventDefault();
     e.stopPropagation();
